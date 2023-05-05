@@ -1,9 +1,21 @@
 import { fireEvent, render } from "@testing-library/react";
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi } from "vitest";
 import { Form } from ".";
+import { useListTodo } from "../../hooks/useListTodo";
+
+vi.mock("../../hooks/useListTodo", () => {
+   return {
+      useListTodo: vi.fn()
+   }
+});
 
 describe("<Form />", () => {
-    const placeholderMock = "Write your task";
+   const placeholderMock = "Write your task";
+   
+   beforeEach(() => {
+      (useListTodo as jest.Mock).mockReturnValue({listTodo: ['My first task'], setListTodo: vi.fn()})
+   })
+   
   it("should input have correct placeholder and button disabled", () => {
    
      const { getByPlaceholderText, getByRole } = render(<Form />);
@@ -19,7 +31,6 @@ describe("<Form />", () => {
         target: {
            value: 'My first task'
         }
-        
      })
 
      expect(button).not.toBeDisabled()

@@ -1,6 +1,6 @@
 import { ReactNode, createContext, useState } from "react";
 
-type TodoContextProps = { listTodo?: string[], setListTodo: (listTodo: string[]) => void };
+type TodoContextProps = { listTodo?: string[], setListTodo: (listTodo?: string[]) => void };
 
 type ContextProps = {
   children: ReactNode;
